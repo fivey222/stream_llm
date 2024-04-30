@@ -25,9 +25,9 @@ def generate_response(input_text, openai_api_key):
     #st.info(output)
     return output
 
-def get_vectordb(pdf_contents):
+def get_vectordb(pdf_contents,api_key):
     # 定义 Embeddings
-    embedding = ZhipuAIEmbeddings()
+    embedding = ZhipuAIEmbeddings(api_key)
     loaders = []
     loaders.append(PyMuPDFLoader(pdf_contents))
     texts = []
@@ -89,7 +89,7 @@ def main():
     if uploaded_file is not None:
         # 读取文件内容
         pdf_contents = uploaded_file.read()
-        vectordb = get_vectordb(pdf_contents)
+        vectordb = get_vectordb(pdf_contents,zhipuai_api_key)
     
 
     # 添加一个选择按钮来选择不同的模型
