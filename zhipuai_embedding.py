@@ -13,6 +13,8 @@ class ZhipuAIEmbeddings(BaseModel, Embeddings):
 
     client: Any
     """`zhipuai.ZhipuAI"""
+    def __init__(self, api_key):
+        self.api_key = api_key
 
     @root_validator(allow_reuse=True)
     def validate_environment(cls, values: Dict) -> Dict:
@@ -27,7 +29,7 @@ class ZhipuAIEmbeddings(BaseModel, Embeddings):
             values (Dict): 包含配置信息的字典。如果环境中有zhipuai库，则将返回实例化的ZhipuAI类；否则将报错 'ModuleNotFoundError: No module named 'zhipuai''.
         """
         from zhipuai import ZhipuAI
-        values["client"] = ZhipuAI()
+        values["client"] = ZhipuAI(api_key = self.api_key)
         return values
 
 
