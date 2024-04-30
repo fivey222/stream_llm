@@ -14,14 +14,7 @@ class ZhipuAIEmbeddings(BaseModel, Embeddings):
     client: Any
     newapi_key: str
     """`zhipuai.ZhipuAI"""
-    def __init__(self, newapi_key):
-        from pydantic import BaseModel
 
-class ZhipuAIEmbeddings(BaseModel):
-    def __init__(self, api_key):
-        super().__init__()
-
-        self.newapi_key = newapi_key
 
     @root_validator(allow_reuse=True)
     def validate_environment(cls, values: Dict) -> Dict:
@@ -36,7 +29,7 @@ class ZhipuAIEmbeddings(BaseModel):
             values (Dict): 包含配置信息的字典。如果环境中有zhipuai库，则将返回实例化的ZhipuAI类；否则将报错 'ModuleNotFoundError: No module named 'zhipuai''.
         """
         from zhipuai import ZhipuAI
-        values["client"] = ZhipuAI(api_key=values["newapi_key"])
+        values["client"] = ZhipuAI(api_key=newapi_key)
         return values
 
 
