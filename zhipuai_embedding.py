@@ -12,10 +12,10 @@ class ZhipuAIEmbeddings(BaseModel, Embeddings):
     """`Zhipuai Embeddings` embedding models."""
 
     client: Any
-    api_key: str
+    newapi_key: str
     """`zhipuai.ZhipuAI"""
-    def __init__(self, api_key):
-        self.api_key = api_key
+    def __init__(self, newapi_key):
+        self.newapi_key = newapi_key
 
     @root_validator(allow_reuse=True)
     def validate_environment(cls, values: Dict) -> Dict:
