@@ -15,7 +15,7 @@ _ = load_dotenv(find_dotenv())    # read local .env file
 from zhipuai_llm import ZhipuAILLM
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders.pdf import PyMuPDFLoader
-
+import fitz
 
 def generate_response(input_text, openai_api_key):
     llm = ZhipuAILLM(model="chatglm_std", temperature=0, api_key=openai_api_key)
@@ -28,11 +28,17 @@ def generate_response(input_text, openai_api_key):
 def get_vectordb(pdf_contents,api_key):
     # 定义 Embeddings
     embedding = ZhipuAIEmbeddings(newapi_key=api_key)
+    pdf_document = fitz.open(uploaded_file)
     
+    # 读取PDF文件中的文本
+    text = []
+    for page_num in range(pdf_document.page_count):
+        page = pdf_document.load_page(page_num)
+        text.append(page.get_text("text"))
     text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500, chunk_overlap=50)
 
-    split_docs = text_splitter.split_documents(pdf_contents)
+    split_docs = text_splitter.split_documents(text)
     vectordb = Chroma.from_documents(
     documents=split_docs[:20], # 为了速度，只选择前 20 个切分的 doc 进行生成；使用千帆时因QPS限制，建议选择前 5 个doc
     embedding=embedding
