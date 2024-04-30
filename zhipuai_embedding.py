@@ -15,6 +15,12 @@ class ZhipuAIEmbeddings(BaseModel, Embeddings):
     newapi_key: str
     """`zhipuai.ZhipuAI"""
     def __init__(self, newapi_key):
+        from pydantic import BaseModel
+
+class ZhipuAIEmbeddings(BaseModel):
+    def __init__(self, api_key):
+        super().__init__()
+
         self.newapi_key = newapi_key
 
     @root_validator(allow_reuse=True)
