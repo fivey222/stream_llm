@@ -12,6 +12,7 @@ class ZhipuAIEmbeddings(BaseModel, Embeddings):
     """`Zhipuai Embeddings` embedding models."""
 
     client: Any
+    api_key: str
     """`zhipuai.ZhipuAI"""
     def __init__(self, api_key):
         self.api_key = api_key
