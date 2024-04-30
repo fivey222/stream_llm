@@ -28,14 +28,11 @@ def generate_response(input_text, openai_api_key):
 def get_vectordb(pdf_contents,api_key):
     # 定义 Embeddings
     embedding = ZhipuAIEmbeddings(newapi_key=api_key)
-    loaders = []
-    loaders.append(PyMuPDFLoader(pdf_contents))
-    texts = []
-    for loader in loaders: texts.extend(loader.load())
+    
     text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500, chunk_overlap=50)
 
-    split_docs = text_splitter.split_documents(texts)
+    split_docs = text_splitter.split_documents(pdf_contents)
     vectordb = Chroma.from_documents(
     documents=split_docs[:20], # 为了速度，只选择前 20 个切分的 doc 进行生成；使用千帆时因QPS限制，建议选择前 5 个doc
     embedding=embedding
