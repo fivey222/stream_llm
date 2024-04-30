@@ -15,7 +15,7 @@ _ = load_dotenv(find_dotenv())    # read local .env file
 from zhipuai_llm import ZhipuAILLM
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders.pdf import PyMuPDFLoader
-import fitz
+import langchain
 
 def generate_response(input_text, openai_api_key):
     llm = ZhipuAILLM(model="chatglm_std", temperature=0, api_key=openai_api_key)
@@ -28,13 +28,10 @@ def generate_response(input_text, openai_api_key):
 def get_vectordb(pdf_contents,api_key):
     # 定义 Embeddings
     embedding = ZhipuAIEmbeddings(newapi_key=api_key)
-    pdf_document = fitz.open(stream=pdf_contents, filetype="pdf")
+    text = langchain.extract_text_from_pdf(pdf_contents)
+
     
-    # 读取PDF文件中的文本
-    text = []
-    for page_num in range(pdf_document.page_count):
-        page = pdf_document.load_page(page_num)
-        text.append(page.get_text("text"))
+    
     text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500, chunk_overlap=50)
 
