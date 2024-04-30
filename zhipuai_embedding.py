@@ -29,7 +29,7 @@ class ZhipuAIEmbeddings(BaseModel, Embeddings):
             values (Dict): 包含配置信息的字典。如果环境中有zhipuai库，则将返回实例化的ZhipuAI类；否则将报错 'ModuleNotFoundError: No module named 'zhipuai''.
         """
         from zhipuai import ZhipuAI
-        values["client"] = ZhipuAI(api_key=newapi_key)
+        values["client"] = ZhipuAI(api_key= values["newapi_key"])
         return values
 
 
