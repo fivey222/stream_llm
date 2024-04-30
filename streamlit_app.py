@@ -97,7 +97,7 @@ def main():
     selected_method = st.radio(
         "你想选择哪种模式进行对话？",
         ["None", "qa_chain", "chat_qa_chain"],
-        captions = ["不使用检索问答的普通模式", "不带历史记录的检索问答模式", "带历史记录的检索问答模式"])
+        captions = ["不使用检索问答的普通模式", "不带历史记录的检索问答模式(在这里读取你的pdf文档)", "带历史记录的检索问答模式"])
 
     # 用于跟踪对话历史
     if 'messages' not in st.session_state:
