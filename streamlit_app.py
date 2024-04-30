@@ -28,7 +28,7 @@ def generate_response(input_text, openai_api_key):
 def get_vectordb(pdf_contents,api_key):
     # 定义 Embeddings
     embedding = ZhipuAIEmbeddings(newapi_key=api_key)
-    pdf_document = fitz.open(uploaded_file)
+    pdf_document = fitz.open(pdf_contents)
     
     # 读取PDF文件中的文本
     text = []
