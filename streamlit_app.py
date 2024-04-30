@@ -27,7 +27,7 @@ def generate_response(input_text, openai_api_key):
 
 def get_vectordb(pdf_contents,api_key):
     # 定义 Embeddings
-    embedding = ZhipuAIEmbeddings(api_key)
+    embedding = ZhipuAIEmbeddings(newapi_key=api_key)
     loaders = []
     loaders.append(PyMuPDFLoader(pdf_contents))
     texts = []
