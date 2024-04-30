@@ -89,7 +89,8 @@ def main():
     if uploaded_file is not None:
         # 读取文件内容
         pdf_contents = uploaded_file.read()
-    vectordb = get_vectordb(pdf_contents)
+        vectordb = get_vectordb(pdf_contents)
+    
 
     # 添加一个选择按钮来选择不同的模型
     #selected_method = st.sidebar.selectbox("选择模式", ["qa_chain", "chat_qa_chain", "None"])
