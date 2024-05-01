@@ -28,7 +28,7 @@ def generate_response(input_text, openai_api_key):
 def get_vectordb(pdf_contents,api_key):
     # 定义 Embeddings
     embedding = ZhipuAIEmbeddings(newapi_key=api_key)
-    page = fitz.open(pdf_contents)
+    doc = pdf_contents
     text = ""
     for page in doc:
         text += page.getText()
@@ -90,8 +90,8 @@ def main():
 
     # 如果用户上传了文件
     if uploaded_file is not None:
-       
-        vectordb = get_vectordb(uploaded_file,zhipuai_api_key)
+        pdf_contents = fitz.open(uploaded_file)
+        vectordb = get_vectordb(pdf_contents,zhipuai_api_key)
     
 
     # 添加一个选择按钮来选择不同的模型
