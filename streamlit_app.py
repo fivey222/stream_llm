@@ -15,6 +15,7 @@ _ = load_dotenv(find_dotenv())    # read local .env file
 from zhipuai_llm import ZhipuAILLM
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders.pdf import PyMuPDFLoader
+from io import BytesIO
 import fitz
 
 def generate_response(input_text, openai_api_key):
@@ -90,7 +91,8 @@ def main():
 
     # 如果用户上传了文件
     if uploaded_file is not None:
-        pdf_contents = fitz.open(uploaded_file)
+        pdf_data = BytesIO(uploaded_file.read())
+        pdf_contents = fitz.open("pdf", pdf_data)
         vectordb = get_vectordb(pdf_contents,zhipuai_api_key)
     
 
