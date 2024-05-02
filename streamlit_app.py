@@ -35,6 +35,7 @@ def get_vectordb(pdf_contents,api_key):
     for page in doc:
         text += page.get_text()
     document = Document(page_content=text)
+    print(document.page_content)
     
     
     text_splitter = RecursiveCharacterTextSplitter(
