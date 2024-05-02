@@ -31,17 +31,18 @@ def get_vectordb(pdf_contents,api_key):
     # 定义 Embeddings
     embedding = ZhipuAIEmbeddings(newapi_key=api_key)
     doc = pdf_contents
-    text = ""
+    text = []
     for page in doc:
-        text += page.get_text()
-    document = Document(page_content=text)
-    print(document.page_content)
+        
+        document = Document(page.get_text())
+        text.append(document)
+   
     
     
     text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500, chunk_overlap=50)
 
-    split_docs = text_splitter.split_documents(document)
+    split_docs = text_splitter.split_documents(text)
     vectordb = Chroma.from_documents(
     documents=split_docs[:20], # 为了速度，只选择前 20 个切分的 doc 进行生成；使用千帆时因QPS限制，建议选择前 5 个doc
     embedding=embedding
