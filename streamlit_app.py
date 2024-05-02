@@ -32,7 +32,7 @@ def get_vectordb(pdf_contents,api_key):
     doc = pdf_contents
     text = ""
     for page in doc:
-        text += page.gettext()
+        text += page.get_text()
 
     
     
