@@ -17,6 +17,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders.pdf import PyMuPDFLoader
 from io import BytesIO
 import fitz
+from langchain_core.documents.base import Document
 
 def generate_response(input_text, openai_api_key):
     llm = ZhipuAILLM(model="chatglm_std", temperature=0, api_key=openai_api_key)
